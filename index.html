@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>你的网站名称</title>
+  <style>
+    #file-tree {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 5px;
+    }
+
+    li[data-type="folder"] {
+      cursor: pointer;
+    }
+
+    li[data-type="file"] {
+      margin-left: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="file-tree"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const sourceFolder = await getFolder(); // 获取用户选择的文件夹
+      const directoryStructure = await getDirectoryStructure(sourceFolder);
+
+      const fileTree = document.getElementById('file-tree');
+      fileTree.appendChild(createTree(directoryStructure));
+
+      // 递归创建文件目录树
+      function createTree(nodes) {
+        const ul = document.createElement('ul');
+
+        nodes.forEach(node => {
+          const li = document.createElement('li');
+          li.textContent = node.name;
+
+          if (node.type === 'folder') {
+            li.dataset.type = 'folder';
+            li.appendChild(createTree(node.children));
+          } else {
+            li.dataset.type = 'file';
+          }
+
+          ul.appendChild(li);
+        });
+
+        return ul;
+      }
+
+      // 添加点击事件处理，展开/折叠文件夹
+      document.getElementById('file-tree').addEventListener('click', function (event) {
+        const target = event.target;
+        if (target.dataset.type === 'folder') {
+          target.querySelector('ul').classList.toggle('hidden');
+        }
+      });
+
+      // 获取用户选择的文件夹
+      async function getFolder() {
+        const handle = await window.showDirectoryPicker();
+        return handle;
+      }
+
+      // 递归获取文件夹结构
+      async function getDirectoryStructure(folderHandle) {
+        const structure = [];
+
+        for await (const entry of folderHandle.values()) {
+          const node = {
+            name: entry.name,
+            type: entry.kind === 'directory' ? 'folder' : 'file',
+          };
+
+          if (node.type === 'folder') {
+            node.children = await getDirectoryStructure(entry);
+          }
+
+          structure.push(node);
+        }
+
+        return structure;
+      }
+    });
+  </script>
+</body>
+</html>
