@@ -36,9 +36,26 @@
   <div id="file-tree"></div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', async function () {
-      const sourceFolder = await getFolder(); // 获取用户选择的文件夹
-      const directoryStructure = await getDirectoryStructure(sourceFolder);
+    document.addEventListener('DOMContentLoaded', function () {
+      const directoryStructure = [
+        {
+          name: "第1章 集合与常用逻辑用语",
+          type: "folder",
+          children: [
+            { name: "文件1.pdf", type: "file" },
+            { name: "文件2.pdf", type: "file" }
+          ]
+        },
+        {
+          name: "第2章 一元二次函数、方程与不等式",
+          type: "folder",
+          children: [
+            { name: "文件3.pdf", type: "file" },
+            // 添加更多文件
+          ]
+        },
+        // 添加其他章节
+      ];
 
       const fileTree = document.getElementById('file-tree');
       fileTree.appendChild(createTree(directoryStructure));
@@ -71,32 +88,6 @@
           target.querySelector('ul').classList.toggle('hidden');
         }
       });
-
-      // 获取用户选择的文件夹
-      async function getFolder() {
-        const handle = await window.showDirectoryPicker();
-        return handle;
-      }
-
-      // 递归获取文件夹结构
-      async function getDirectoryStructure(folderHandle) {
-        const structure = [];
-
-        for await (const entry of folderHandle.values()) {
-          const node = {
-            name: entry.name,
-            type: entry.kind === 'directory' ? 'folder' : 'file',
-          };
-
-          if (node.type === 'folder') {
-            node.children = await getDirectoryStructure(entry);
-          }
-
-          structure.push(node);
-        }
-
-        return structure;
-      }
     });
   </script>
 </body>
