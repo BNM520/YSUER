@@ -30,34 +30,195 @@
     .hidden {
       display: none;
     }
+
+    #pdf-viewer {
+      width: 100%;
+      height: 600px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
   <div id="file-tree"></div>
+  <iframe id="pdf-viewer" class="hidden"></iframe>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const directoryStructure = [
-        {
-          name: "第1章 集合与常用逻辑用语",
-          type: "folder",
-          children: [
-            { name: "文件1.pdf", type: "file" },
-            { name: "文件2.pdf", type: "file" }
-          ]
-        },
-        {
-          name: "第2章 一元二次函数、方程与不等式",
-          type: "folder",
-          children: [
-            { name: "文件3.pdf", type: "file" },
-            // 添加更多文件
-          ]
-        },
-        // 添加其他章节
-      ];
+  {
+    name: "第1章 集合与常用逻辑用语",
+    type: "folder",
+    children: [
+      {
+        name: "模块1 集合",
+        type: "folder",
+        children: [
+          { name: "第1节 集合(无答案）.pdf", type: "file" },
+          { name: "第1节 集合(有答案).pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块2 常用逻辑用语",
+        type: "folder",
+        children: [
+          { name: "第1节 常用逻辑用语(无答案).pdf", type: "file" },
+          { name: "第1节 常用逻辑用语(有答案).pdf", type: "file" }
+        ]
+      }
+    ]
+  },
+  {
+    name: "第2章 一元二次函数、方程与不等式",
+    type: "folder",
+    children: [
+      {
+        name: "模块1 不等式与二次函数",
+        type: "folder",
+        children: [
+          { name: "第1节 不等式的性质、一元二次方程与不等式（无答案）.pdf", type: "file" },
+          { name: "第1节 不等式的性质、一元二次方程与不等式（有答案）.pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块2 基本不等式",
+        type: "folder",
+        children: [
+          { name: "第1节 基本不等式的常见用法与拼凑技巧（无答案）.pdf", type: "file" },
+          { name: "第1节 基本不等式的常见用法与拼凑技巧（有答案）.pdf", type: "file" },
+          { name: "第2节 基本不等式的核心运用思想（无答案）.pdf", type: "file" },
+          { name: "第2节 基本不等式的核心运用思想（有答案）.pdf", type: "file" },
+          { name: "第3节 不等式的三角换元方法（无答案）.pdf", type: "file" },
+          { name: "第3节 不等式的三角换元方法（有答案）.pdf", type: "file" }
+        ]
+      }
+    ]
+  },
+  {
+    name: "第3章 函数与导数",
+    type: "folder",
+    children: [
+      {
+        name: "模块1：函数概念与性质",
+        type: "folder",
+        children: [
+          { name: "第1节 函数概念（无答案）.pdf", type: "file" },
+          { name: "第1节 函数概念（有答案）.pdf", type: "file" },
+          { name: "第2节 函数的单调性与奇偶性（无答案）.pdf", type: "file" },
+          { name: "第2节 函数的单调性与奇偶性（有答案）.pdf", type: "file" },
+          { name: "第3节 抽象函数问题（无答案）.pdf", type: "file" },
+          { name: "第3节 抽象函数问题（有答案）.pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块2：指数、对数函数基本题型",
+        type: "folder",
+        children: [
+          { name: "第1节 指数、对数函数的基本运算与图象性质（无答案）.pdf", type: "file" },
+          { name: "第1节 指数、对数函数的基本运算与图象性质（有答案）.pdf", type: "file" },
+          { name: "第2节 选解析式与选图象（无答案）.pdf", type: "file" },
+          { name: "第2节 选解析式与选图象（有答案）.pdf", type: "file" },
+          { name: "第3节 简单的比较指、对数大小问题（无答案）.pdf", type: "file" },
+          { name: "第3节 简单的比较指、对数大小问题（有答案）.pdf", type: "file" },
+          { name: "第4节 判断函数零点所在区间（无答案）.pdf", type: "file" },
+          { name: "第4节 判断函数零点所在区间（有答案）.pdf", type: "file" }
+        ]
+      },
+      // ... (Continue with the rest of the structure)
+    ]
+  },
+  // ... (Previous structure)
+
+  {
+    name: "第4章 三角函数",
+    type: "folder",
+    children: [
+      {
+        name: "模块1：同角三角函数关系与诱导公式",
+        type: "folder",
+        children: [
+          { name: "第1节 三角函数的定义（无答案）.pdf", type: "file" },
+          { name: "第1节 三角函数的定义（有答案）.pdf", type: "file" },
+          { name: "第2节 同角三角函数基本关系（无答案）.pdf", type: "file" },
+          { name: "第2节 同角三角函数基本关系（有答案）.pdf", type: "file" },
+          { name: "第3节 诱导公式（无答案）.pdf", type: "file" },
+          { name: "第3节 诱导公式（有答案）.pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块2：三角恒等变换",
+        type: "folder",
+        children: [
+          { name: "第1节 和差角、辅助角、二倍角公式（无答案）.pdf", type: "file" },
+          { name: "第1节 和差角、辅助角、二倍角公式（有答案）.pdf", type: "file" },
+          { name: "第2节 三大统一思想：角度、名称、次数（无答案）.pdf", type: "file" },
+          { name: "第2节 三大统一思想：角度、名称、次数（有答案）.pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块3：三角函数的图象性质",
+        type: "folder",
+        children: [
+          { name: "第1节 求三角函数解析式f(x)=Asin(ωx+φ)+B（无答案）.pdf", type: "file" },
+          { name: "第1节 求三角函数解析式f(x)=Asin(ωx+φ)+B（有答案）.pdf", type: "file" },
+          { name: "第2节 三角函数图象的变换（无答案）.pdf", type: "file" },
+          { name: "第2节 三角函数图象的变换（有答案）.pdf", type: "file" },
+          { name: "第3节 四个常见条件的翻译（无答案）.pdf", type: "file" },
+          { name: "第3节 四个常见条件的翻译（有答案）.pdf", type: "file" },
+          { name: "第4节 整体换元法的应用（无答案）.pdf", type: "file" },
+          { name: "第4节 整体换元法的应用（有答案）.pdf", type: "file" },
+          { name: "第5节 三角函数图象性质综合问题（无答案）.pdf", type: "file" },
+          { name: "第5节 三角函数图象性质综合问题（有答案）.pdf", type: "file" }
+        ]
+      }
+    ]
+  },
+  {
+    name: "第5章 解三角形",
+    type: "folder",
+    children: [
+      {
+        name: "模块1：相关定理的基本运用",
+        type: "folder",
+        children: [
+          { name: "1正余弦定理基础模型（无答案）.pdf", type: "file" },
+          { name: "1正余弦定理基础模型（有答案）.pdf", type: "file" },
+          { name: "2三角恒等式的常见变形（无答案）.pdf", type: "file" },
+          { name: "2三角恒等式的常见变形（有答案）.pdf", type: "file" },
+          { name: "3角的取舍（无答案）.pdf", type: "file" },
+          { name: "3角的取舍（有答案）.pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块2：代数问题篇",
+        type: "folder",
+        children: [
+          { name: "1解三角形中的化角类问题(无答案).pdf", type: "file" },
+          { name: "1解三角形中的化角类问题(有答案).pdf", type: "file" },
+          { name: "2解三角形中的化边类问题（无答案）.pdf", type: "file" },
+          { name: "2解三角形中的化边类问题（有答案）.pdf", type: "file" },
+          { name: "3代数式的恒等变形（无答案）.pdf", type: "file" },
+          { name: "3代数式的恒等变形（有答案）.pdf", type: "file" }
+        ]
+      },
+      {
+        name: "模块3：几何问题篇",
+        type: "folder",
+        children: [
+          { name: "1射影定理、几何计算（无答案）.pdf", type: "file" },
+          { name: "1射影定理、几何计算（有答案）.pdf", type: "file" },
+          { name: "2三角形的各种线(无答案).pdf", type: "file" },
+          { name: "2三角形的各种线(有答案).pdf", type: "file" }
+        ]
+      }
+    ]
+  }
+  // ... (Continue with the rest of the structure)
+];
 
       const fileTree = document.getElementById('file-tree');
+      const pdfViewer = document.getElementById('pdf-viewer');
+
       fileTree.appendChild(createTree(directoryStructure));
 
       // 递归创建文件目录树
@@ -73,6 +234,7 @@
             li.appendChild(createTree(node.children));
           } else {
             li.dataset.type = 'file';
+            li.addEventListener('click', () => loadPDF(node.path));
           }
 
           ul.appendChild(li);
@@ -88,6 +250,12 @@
           target.querySelector('ul').classList.toggle('hidden');
         }
       });
+
+      // 加载PDF文件
+      function loadPDF(pdfPath) {
+        pdfViewer.src = pdfPath;
+        pdfViewer.classList.remove('hidden');
+      }
     });
   </script>
 </body>
